@@ -1,8 +1,9 @@
-/arctic-clusters/SOM
+.ipynb_checkpoints
 *.png
+*.log
+/arctic-clusters/SOM
 /arctic-clusters/glodap_ip.nc
 /arctic-clusters/gotm-arctic.nc
 /arctic-clusters/gotm-arctic_split.nc
-*.log
 /arctic-clusters/era5.nc
 /arctic-clusters/era5_split.nc
