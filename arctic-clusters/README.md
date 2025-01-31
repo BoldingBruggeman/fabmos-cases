@@ -6,8 +6,8 @@ To run this example:
 
 * Install [`fabmos`](https://github.com/BoldingBruggeman/fabmos/wiki)
 * Install [the Copernicus Marine Toolbox](https://toolbox-docs.marine.copernicus.eu/) and [login](https://toolbox-docs.marine.copernicus.eu/en/v2.0.0/usage/login-usage.html)
-* Install [the Climate Data Store (CDS) Application Program Interface (API)](https://cds.climate.copernicus.eu/how-to-api) and setup its personal access token.
-* Make sure you have a local copy of the test cases repository with:
+* Install [the Climate Data Store (CDS) Application Program Interface (API)](https://cds.climate.copernicus.eu/how-to-api) and setup its personal access token
+* Make sure you have a local copy of the test cases repository:
   
    `git clone https://github.com/BoldingBruggeman/fabmos-cases.git`
 * Go to the "arctic-clusters" test case:
@@ -19,7 +19,7 @@ To run this example:
 * Run the download script that retrieves ERA5 (meteorology), GLODAP (initialization) and CMEMS (velocities):
 
   `python download.py`
-* Run the preprocessing script that interpolates GLODAP to the Arctic grid, averages ERA5 over each cluster and infer cluster connectivity from CMEMS velocities:
+* Run the preprocessing script that interpolates GLODAP to the Arctic grid, averages ERA5 over each cluster and infers cluster connectivity from CMEMS velocities:
 
   `python preprocess.py`
 * Run the simulation:
