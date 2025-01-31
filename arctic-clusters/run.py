@@ -86,11 +86,14 @@ if __name__ == "__main__":
     sim["CO2_c"].set(fabmos.input.from_nc(GLODAP_FILE, "TCO2") * rho, on_grid=True)
     # fmt: on
 
-    # Light attentuation
-    sim.radiation.jerlov_type = pygetm.radiation.Jerlov.Type_I
+    # Light attentuation based on Jerlov water type
+    # (https://doi.org/10.1029/JC091iC05p06642)
+    # Time/space varying values could be used instead by calling .set(...)
+    # on sim.radiation.A, sim.radiation.kc1, sim.radiation.kc2
+    sim.radiation.jerlov_type = pygetm.radiation.Jerlov.Type_III
 
     # Atmospheric pCO2
-    sim.fabm.get_dependency("mole_fraction_of_carbon_dioxide_in_air").set(375.0)
+    sim.fabm.get_dependency("mole_fraction_of_carbon_dioxide_in_air").set(401.0)
 
     # Configure output
     out = sim.output_manager.add_netcdf_file(
