@@ -15,7 +15,7 @@ if __name__ == "__main__":
     # GLODAP initial conditions (global)
     pygetm.input.glodap.download_and_process(os.path.join(TARGET_DIR, "glodap.nc"))
 
-    # ERA5 meteorology (lat-lon recangle encompassing original domain)
+    # ERA5 meteorology (lat-lon rectangle encompassing original domain)
     lon = domain.lon[1::2, 1::2]
     lat = domain.lat[1::2, 1::2]
     era_year2path = pygetm.input.era5.get(
