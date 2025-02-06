@@ -70,7 +70,7 @@ physics hindcast.
 
 # Notes
 
-* This example was originally run with the exact same ECOSMO version that was
-  used to generate the CMEMS hindcast usd for clustering. This ECOSMO version
+* This example was originally run with the exact same ECOSMO version that
+  underpinned the CMEMS hindcast used for clustering. This ECOSMO version
   is available as [commit a8d6383 from https://github.com/nansencenter/nersc/tree/TP2_reanalysis_2023](https://github.com/nansencenter/nersc/tree/a8d6383ab236be8761cbb6ac69ae632f8fdedbae)
     
