@@ -1,12 +1,14 @@
 import os.path
-import glob
 import logging
+
+import xarray as xr
+from dask.diagnostics import ProgressBar
 
 import fabmos.input.cluster
 import pygetm.input.glodap
 
 import run
-from download import TARGET_DIR as DATA_DIR
+from download import TARGET_DIR as DATA_DIR, MINYEAR, MAXYEAR
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
@@ -35,16 +37,19 @@ if __name__ == "__main__":
 
     # Average ERA5 per cluster (special treatment of wind components u10 and
     # v10 to preserve average wind speed)
-    ERA_FILES = os.path.join(DATA_DIR, "era5", "era5_????.nc")
-    for infile in glob.glob(ERA_FILES):
-        outfile = f"{os.path.basename(infile)[:-3]}.nc"
-        logger.info(f"Averaging {infile} and saving to {outfile}...")
-        fabmos.input.cluster.average(
-            domain,
-            infile,
-            outfile,
-            chunksize=24 * 20,
-            averager=fabmos.input.cluster.average_uv,
-            periodic_lon=True,
-            logger=logger,
-        )
+    for year in range(MINYEAR, MAXYEAR + 1):
+        era_files = os.path.join(DATA_DIR, "era5", f"era5_*_{year}.nc")
+        outfile = f"era5_{year}.nc"
+        logger.info(f"Averaging {year} and saving to {outfile}...")
+        with xr.open_mfdataset(era_files, compat="no_conflicts") as ds:
+            ds_av = fabmos.input.cluster.average(
+                domain,
+                ds,
+                outfile,
+                chunksize=24 * 20,
+                averagers={("u10", "v10"): fabmos.input.cluster.average_uv},
+                periodic_lon=True,
+                logger=logger,
+            )
+            with ProgressBar():
+                ds_av.to_netcdf(outfile, mode="w")
